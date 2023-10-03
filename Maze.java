@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Maze {
     public static void main(String[] args) {
 
@@ -43,14 +41,16 @@ public class Maze {
         initMaze.mazeSidesFill(maze);
         initMaze.gridFill(maze);
         initMaze.mazeRandCase(maze, numbers, num);
-        //printMaze(maze);
 
         // generate maze by type and perfection
         switch (mazeType) {
             case "imperfect":
                 switch (mazePerfection) {
                     case "simple":
-                        //SimpleImperfectMazeGenerator
+                        SimpleImperfectMazeGenerator algo2 = new SimpleImperfectMazeGenerator();
+                        SimplePerfectMazeGenerator algo1 = new SimplePerfectMazeGenerator();
+                        algo1.generate(maze, numbers, num, width, length);
+                        algo2.holesMaker(maze, numbers, num, width, length);
                         break;
                     case "graph":
                         //GraphBasedMazeGenerator
@@ -72,7 +72,8 @@ public class Maze {
                         mazeGenerator.generate(maze, numbers, num, width, length);
                         break;
                     case "graph":
-                        //GraphBasedMazeGenerator
+                        //GraphBasedMazeGenerator graph = new GraphBasedMazeGenerator();
+                        //graph.generate(maze, numbers, num, width, length);
                         break;
                     case "optimized":
                         //OptimizedMazeGenerator
@@ -89,6 +90,14 @@ public class Maze {
         replaceNumbers(maze, width, length);
         printMaze(maze);
     }
+
+
+
+
+
+
+
+
     
     public static void replaceNumbers(int[][] maze, int width, int length) {
         int i = 0;
@@ -112,7 +121,13 @@ public class Maze {
 
         while (i < maze.length) {
             while (j < maze[i].length) {
-                System.out.print(maze[i][j]);
+                if (maze[i][j] == 1) {
+                    System.out.print("#");
+                } else if (maze[i][j] == 0) {
+                    System.out.print(".");
+                } else {
+                    System.out.print(" ");
+                }
                 j++;
             }
             System.out.println();
